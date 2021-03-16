@@ -1,0 +1,135 @@
+[INPUT]
+topfile = top_all36_prot_pasp.rtf, \
+ top_all36_lipid.rtf, \
+ top_all36_na.rtf
+parfile = par_all36_prot_pasp_water_ion.prm, \
+par_all36_lipid.prm, \
+par_all36_na_mod.prm
+strfile = toppar_water_ions_mod_genesis.str, \
+toppar_all36_na_nad_ppi_mod.str, \
+toppar_phosphoaspartate4_mod.str
+psffile = sys_solvion.psf       # protein structure file
+pdbfile = sys_solvion_shift.pdb
+reffile = sys_solvion_shift.pdb
+rstfile = eq.0.rst
+ 
+[OUTPUT]
+rstfile = eq.1.rst
+dcdfile = eq.1.dcd
+
+[ENERGY]
+forcefield      = CHARMM        # [CHARMM]
+electrostatic   = PME           # [CUTOFF,PME]
+switchdist      = 10.0          # switch distance
+cutoffdist      = 12.0          # cutoff distance
+pairlistdist    = 13.5          # pair-list distance
+pme_ngrid_x     = 96           # grid size_x in [PME] must be set
+pme_ngrid_y     = 96           # grid size_y in [PME] must be set
+pme_ngrid_z     = 128           # grid size_z in [PME] must be set
+pme_nspline     = 4
+water_model     = NONE
+vdw_force_switch = YES
+
+[DYNAMICS]
+integrator      = VRES          # [LEAP,VVER]
+timestep        = 0.0025         # timestep (ps)
+nsteps          = 800000         # number of MD steps
+crdout_period   = 4000
+eneout_period   = 2000          # energy output period
+rstout_period   = 100000
+nbupdate_period = 10
+elec_long_period  = 2
+thermostat_period = 10
+barostat_period   = 10
+
+[CONSTRAINTS]
+rigid_bond      = YES           # constraints all bonds involving hydrogen
+fast_water      = YES
+shake_tolerance = 1.0D-10
+
+[ENSEMBLE]
+ensemble        = NPT           # [NVE,NVT,NPT]
+tpcontrol       = BUSSI      # thermostat and barostat
+temperature     = 310.15
+pressure        = 1.0           # atm
+isotropy        = SEMI-ISO
+ 
+[BOUNDARY]
+type            = PBC           # [PBC]
+box_size_x      = 138.00
+box_size_y      = 138.00
+box_size_z      = 170.00
+domain_x = 8
+domain_y = 8
+domain_z = 8
+
+[SELECTION]
+group1          = sid:MEMB and ((rnam:DOPC and (an:P)))
+group2          = sid:MG and ano:15441 #MG
+group3          = sid:PRO and rnam:PASP and resno:351 and an:O2P
+group4          = sid:PRO and rnam:PASP and resno:351 and an:OD1
+group5          = sid:PRO and rnam:PASP and resno:351 and an:OT
+group6          = sid:PRO and rnam:THR and  resno:353 and an:O
+group7          = sid:PRO and rnam:THR and  resno:353 and an:N
+group8          = sid:PRO and rnam:THR and  resno:625 and an:OG1
+group9          = sid:PRO and rnam:ASP and  resno:703 and an:OD1
+group10         = sid:POT and ano:15442 #POT
+group11         = sid:PRO and rnam:GLU and resno:732 and an:OE1
+group12         = sid:PRO and rnam:GLU and resno:732 and an:OE2
+group13         = sid:PRO and rnam:LEU and resno:711 and an:O
+group14         = sid:PRO and rnam:ALA and resno:714 and an:O
+group15         = sid:PRO and heavyatom
+
+
+[RESTRAINTS]
+nfunctions=10
+
+function1         = DIST
+constant1         = 10.0
+reference1        = 1.90
+select_index1     = 2 3
+
+function2         = DIST
+constant2         = 10.0
+reference2        = 1.98
+select_index2     = 2 4
+
+function3         = DIST
+constant3         = 10.0
+reference3        = 2.36
+select_index3     = 2 6
+
+function4         = DIST
+constant4         = 10.0
+reference4        = 2.78
+select_index4     = 2 9
+
+function5         = DIST
+constant5         = 10.0
+reference5        = 3.00
+select_index5     = 5 7
+
+function6         = DIST
+constant6         = 10.0
+reference6        = 2.41
+select_index6     = 5 8
+
+function7         = DIST
+constant7         = 10.0
+reference7        = 2.60
+select_index7     = 10 11
+
+function8         = DIST
+constant8         = 10.0
+reference8        = 3.19
+select_index8     = 10 12
+
+function9         = DIST
+constant9         = 10.0
+reference9        = 2.66
+select_index9     = 10 13
+
+function10         = DIST
+constant10         = 10.0
+reference10        = 2.31
+select_index10     = 10 14

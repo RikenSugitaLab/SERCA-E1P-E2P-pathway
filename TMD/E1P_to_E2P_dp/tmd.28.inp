@@ -1,0 +1,247 @@
+[INPUT]
+topfile = top_all36_prot_pasp.rtf, \
+ top_all36_lipid.rtf, \
+ top_all36_na.rtf
+parfile = par_all36_prot_pasp_water_ion.prm, \
+par_all36_lipid.prm, \
+par_all36_na_mod.prm
+strfile = toppar_water_ions_mod_genesis.str, \
+toppar_all36_na_nad_ppi_mod.str, \
+toppar_phosphoaspartate4_mod.str
+psffile = sys_solvion.psf       # protein structure file
+pdbfile = sys_solvion_shift.pdb
+reffile = cent.trzrot_st1-en2.pdb
+rstfile = tmd.27.rst
+ 
+[OUTPUT]
+rstfile = tmd.28.rst
+dcdvelfile = tmd.28.dvl
+dcdfile = tmd.28.dcd
+
+[ENERGY]
+forcefield      = CHARMM        # [CHARMM]
+electrostatic   = PME           # [CUTOFF,PME]
+switchdist      = 10.0          # switch distance
+cutoffdist      = 12.0          # cutoff distance
+pairlistdist    = 13.5          # pair-list distance
+pme_ngrid_x     = 96           # grid size_x in [PME] must be set
+pme_ngrid_y     = 96           # grid size_y in [PME] must be set
+pme_ngrid_z     = 128           # grid size_z in [PME] must be set
+pme_nspline     = 4
+water_model     = NONE
+vdw_force_switch = YES
+
+[DYNAMICS]
+integrator      = VRES          # [LEAP,VVER]
+timestep        = 0.0025        # timestep (ps)
+nsteps          = 2000000         # number of MD steps
+crdout_period   = 4000
+eneout_period   = 2000          # energy output period
+rstout_period   = 1000000
+nbupdate_period = 10
+elec_long_period  = 2
+thermostat_period = 10
+barostat_period   = 10
+target_md = yes
+#rmsd 
+#10ang -> 0ang (20ns) -> 2ang / 1ns 
+final_rmsd       =  5.15
+[CONSTRAINTS]
+rigid_bond      = YES           # constraints all bonds involving hydrogen
+fast_water      = YES
+shake_tolerance = 1.0D-10
+
+[ENSEMBLE]
+ensemble        = NPT           # [NVE,NVT,NPT]
+tpcontrol       = BUSSI      # thermostat and barostat
+temperature     = 310.15
+pressure        = 1.0           # atm
+isotropy        = SEMI-ISO
+ 
+[BOUNDARY]
+type            = PBC           # [PBC]
+box_size_x      = 138.00
+box_size_y      = 138.00
+box_size_z      = 170.00
+domain_x = 8
+domain_y = 8
+domain_z = 8
+
+[SELECTION]
+group1          = sid:PRO and heavyatom
+group2          = sid:POT and ano:15445
+group3          = sid:PRO and rnam:GLU and resno:732 and an:OE1
+group4          = sid:PRO and rnam:GLU and resno:732 and an:OE2
+group5          = sid:PRO and rnam:LEU and resno:711 and an:O
+group6          = sid:PRO and rnam:ALA and resno:714 and an:O
+
+[FITTING]
+fitting_method=NO
+force_no_fitting=YES
+
+[RESTRAINTS]
+nfunctions=5
+function1        = RMSDMASS
+reference1       =  5.54
+constant1        = 1.0
+select_index1    = 1
+
+function2         = DIST
+constant2         = 10.0
+reference2        = 2.47
+select_index2     = 2 3
+
+function3         = DIST
+constant3         = 10.0
+reference3        = 3.24
+select_index3     = 2 4
+
+function4         = DIST
+constant4         = 10.0
+reference4        = 2.38
+select_index4     = 2 5
+
+function5         = DIST
+constant5         = 10.0
+reference5        = 2.93
+select_index5     = 2 6
+
+#function29         = DIST
+#constant29         = 10.0
+#reference29        = 2.13
+#select_index29     = 2 4
+#
+#function2         = DIST
+#constant2         = 10.0
+#reference2        = 2.86
+#select_index2     = 2 5
+#
+#function3         = DIST
+#constant3         = 10.0
+#reference3        = 2.91
+#select_index3     = 10 8
+#
+#function4         = DIST
+#constant4         = 10.0
+#reference4        = 2.94
+#select_index4     = 9 7
+#
+#function5         = DIST
+#constant5         = 10.0
+#reference5        = 2.71
+#select_index5     = 11 38
+#
+#function6         = DIST
+#constant6         = 10.0
+#reference6        = 2.78
+#select_index6     = 12 6
+#
+#function7         = DIST
+#constant7         = 10.0
+#reference7        = 2.77
+#select_index7     = 13 4
+#
+#function8         = DIST
+#constant8         = 10.0
+#reference8        = 3.17
+#select_index8     = 14 5
+#
+#function9         = DIST
+#constant9         = 10.0
+#reference9        = 3.11
+#select_index9     = 15 7
+#
+#function10         = DIST
+#constant10         = 10.0
+#reference10        = 2.12
+#select_index10     = 16 3
+#
+#function11         = DIST
+#constant11         = 10.0
+#reference11        = 2.84
+#select_index11     = 17 3
+#
+#function12         = DIST
+#constant12         = 10.0
+#reference12        = 2.43
+#select_index12     = 18 3
+#
+#function13         = DIST
+#constant13         = 10.0
+#reference13        = 2.37
+#select_index13     = 19 21
+#
+#function14         = DIST
+#constant14         = 10.0
+#reference14        = 2.45
+#select_index14     = 19 22
+#
+#function15         = DIST
+#constant15         = 10.0
+#reference15        = 2.31
+#select_index15     = 19 23
+#
+#function16         = DIST
+#constant16         = 10.0
+#reference16        = 2.37
+#select_index16     = 19 24
+#
+#function17         = DIST
+#constant17         = 10.0
+#reference17        = 2.56
+#select_index17     = 19 25
+#
+#function18         = DIST
+#constant18         = 10.0
+#reference18        = 2.71
+#select_index18     = 20 26
+#
+#function19         = DIST
+#constant19         = 10.0
+#reference19        = 2.71
+#select_index19     = 20 27
+#
+#function20         = DIST
+#constant20         = 10.0
+#reference20        = 2.63
+#select_index20     = 20 28
+#
+#function21         = DIST
+#constant21         = 10.0
+#reference21        = 2.34
+#select_index21     = 20 29
+#
+#function22         = DIST
+#constant22         = 10.0
+#reference22        = 2.59
+#select_index22     = 20 30
+#
+#function23         = DIST
+#constant23         = 10.0
+#reference23        = 2.78
+#select_index23     = 20 31
+#
+#function24         = DIST
+#constant24         = 10.0
+#reference24        = 2.25
+#select_index24     = 20 32
+#
+#function25         = DIST
+#constant25         = 10.0
+#reference25        = 2.47
+#select_index25     = 33 34
+#
+#function26         = DIST
+#constant26         = 10.0
+#reference26        = 3.24
+#select_index26     = 33 35
+#
+#function27         = DIST
+#constant27         = 10.0
+#reference27        = 2.38
+#select_index27     = 33 36
+#
+#function28         = DIST
+#constant28         = 10.0
+#reference28        = 2.93
+#select_index28     = 33 37

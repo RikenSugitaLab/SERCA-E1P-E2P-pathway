@@ -1,0 +1,221 @@
+* Topology and Parameter Stream File for patches to create
+* model compounds and patches that require both protein and
+* nucleic acid topology and parameter information
+*
+
+!Parent files that have to be read prior to streaming this file
+!top_all27_prot_na.rtf
+!par_all27_prot_na.prm
+
+!all patches must be followed by AUTOGENERATE ANGLES DIEDRALS
+
+!PHOSPHOASPARTATE
+
+read rtf card append
+* Topology for phosphorylated amino acids
+*
+31  1
+
+PRES DP2         -2.00  ! patch to convert aspartate to
+                        ! dianionic phosphoaspartate
+!PATCH DP2 ASP 1 SORT SETUP WARN
+!
+GROUP                   !
+ATOM CB   CT2A   -0.18  !     
+ATOM HB1  HA2     0.09  !
+ATOM HB2  HA2     0.09  !     HB1 OD1
+ATOM CG   CC      0.63  !     |   ||
+ATOM OD1  OB2    -0.80  !   --CB--CG--OD2  OT
+ATOM OD2  OS2    -0.47  !     |         \ /
+ATOM P    P       1.37  !     HB2        P   (-2)
+ATOM OT   ON3    -0.91  !              // \\
+ATOM O1P  ON3    -0.91  !             O1P  O2P
+ATOM O2P  ON3    -0.91  !
+BOND P   OD2    P   OT    P   O1P   P   O2P
+ACCEPTOR OT  P
+ACCEPTOR O1P P
+ACCEPTOR O2P P
+IC CB   CG    OD2  P     0.0000  000.000  000.000 000.000  0.0000
+IC CG   OD2   P    OT    0.0000  000.000  180.000 000.000  0.0000
+IC OT   OD2   *P   O1P   0.0000  000.000  120.000 000.000  0.0000
+IC OT   OD2   *P   O2P   0.0000  000.000  240.000 000.000  0.0000
+
+PRES DP1         -1.00  ! patch to convert aspartate to
+                        ! monoanionic phosphoaspartate
+!PATCH DP1 ASP 1 SORT SETUP WARN
+!
+GROUP                   !
+ATOM CB   CT2A    -0.18  !     
+ATOM HB1  HA2     0.09  !
+ATOM HB2  HA2     0.09  !     HB1 OD1
+ATOM CG   CC      1.01  !     |   ||
+ATOM OD1  OB2    -0.76  !   --CB--CG--OD2  OT--HT
+ATOM OD2  OS2    -0.54  !     |         \ /
+ATOM P    P       1.29  !     HB2        P   (-1)
+ATOM OT   ON4    -0.75  !              // \\
+ATOM O1P  ON3    -0.81  !             O1P  O2P
+ATOM O2P  ON3    -0.81  !
+ATOM HT   HN4     0.37  !
+BOND P   OD2    P   OT    P   O1P   P   O2P
+BOND CG  OD2    OT  HT
+ACCEPTOR O1P P
+ACCEPTOR O2P P
+DONOR    HT  OT
+IC CB   CG    OD2  P     0.0000  000.000  000.000 000.000  0.0000
+IC CG   OD2   P    OT    0.0000  000.000  180.000 000.000  0.0000
+IC OT   OD2   *P   O1P   0.0000  000.000  120.000 000.000  0.0000
+IC OT   OD2   *P   O2P   0.0000  000.000  240.000 000.000  0.0000
+IC HT   OT    P    OD2   0.0000  000.000  180.000 000.000  0.0000
+
+RESI ACEP        -2.00  ! dianionic acetylphosphate
+                        !
+GROUP                   !
+ATOM CB   CT3    -0.27  !  HB1    OD1
+ATOM CG   CC      0.63  !     \   ||
+ATOM OD1  OB2    -0.80  !HB2--CB--CG--OD2  OT
+ATOM OD2  OS2    -0.47  !     /         \ /
+ATOM P    P       1.37  !  HB3           P   (-2)
+ATOM OT   ON3    -0.91  !              // \\
+ATOM O1P  ON3    -0.91  !             O1P  O2P
+ATOM O2P  ON3    -0.91  !
+ATOM HB1  HA2     0.09  !
+ATOM HB2  HA2     0.09  !
+ATOM HB3  HA2     0.09  !
+BOND CB  HB1    CB  HB2   CB  HB3   CB  CG
+BOND CG  OD2
+BOND P   OD2    P   OT    P   O1P   P   O2P
+DOUBLE   CG   OD1
+IMPR   CG CB OD2 OD1
+ACCEPTOR OT  P
+ACCEPTOR O1P P
+ACCEPTOR O2P P
+IC CB   CG    OD2  P     0.0000  000.000  000.000 000.000  0.0000
+IC CG   OD2   P    OT    0.0000  000.000  180.000 000.000  0.0000
+IC OT   OD2   *P   O1P   0.0000  000.000  120.000 000.000  0.0000
+IC OT   OD2   *P   O2P   0.0000  000.000  240.000 000.000  0.0000
+
+RESI HACP        -1.00  ! monoanionic acetylphosphate  
+                        ! 
+GROUP                   !
+ATOM CB   CT3    -0.27  !  HB1    OD1        
+ATOM CG   CC      1.01  !     \   ||          
+ATOM OD1  OB2    -0.76  !HB2--CB--CG--OD2  OT--HT
+ATOM OD2  OS2    -0.54  !     /         \ /  
+ATOM P    P       1.29  !  HB3           P   (-1)
+ATOM OT   ON4    -0.75  !              // \\
+ATOM O1P  ON3    -0.81  !             O1P  O2P
+ATOM O2P  ON3    -0.81  !
+ATOM HB1  HA2     0.09  !
+ATOM HB2  HA2     0.09  !
+ATOM HB3  HA2     0.09  !       
+ATOM HT	  HN4     0.37	!
+BOND CB  HB1    CB  HB2   CB  HB3   CB  CG
+BOND CG  OD2    OT  HT
+BOND P   OD2    P   OT    P   O1P   P   O2P
+DOUBLE   CG   OD1
+IMPR   CG CB OD2 OD1
+ACCEPTOR O1P P
+ACCEPTOR O2P P
+DONOR HT OT
+IC CB   CG    OD2  P     0.0000  000.000  000.000 000.000  0.0000 
+IC CG   OD2   P    OT    0.0000  000.000  180.000 000.000  0.0000
+IC OT   OD2   *P   O1P   0.0000  000.000  120.000 000.000  0.0000
+IC OT   OD2   *P   O2P   0.0000  000.000  240.000 000.000  0.0000
+IC HT   OT    P    OD2   0.0000  000.000  180.000 000.000  0.0000
+
+end
+
+read para card append
+* additional parameters for phosphorylated amino acids
+*
+
+BONDS
+!
+!V(bond) = Kb(b - b0)**2
+!
+!Kb: kcal/mole/A**2
+!b0: A
+!
+!atom type Kb          b0
+OS2  P     250.0       1.67    
+OB2  CC    750.000     1.2200 ! OB CC 
+OS2  CC    150.000     1.3340 ! OS CC
+
+ANGLES
+!
+!V(angle) = Ktheta(Theta - Theta0)**2
+!
+!V(Urey-Bradley) = Kub(S - S0)**2
+!
+!Ktheta: kcal/mole/rad**2
+!Theta0: degrees
+!Kub: kcal/mole/A**2 (Urey-Bradley)
+!S0: A
+!
+!atom types     Ktheta    Theta0   Kub     S0
+!
+CC   OS2  P    145.0     127.9                 
+OS2  P    ON3   80.0     101.8
+! for monoanic                 
+OS2  P    ON4   85.4      96.1
+OB2  CC   CT2A   70.000    125.00   20.00   2.44200 ! OB CC CT2A
+OB2  CC   CT3   70.000    125.00   20.00   2.44200 ! OB CC CT3
+OS2  CC   CT2A   55.000    109.00   20.00   2.32600 ! OS CC CT2A
+OS2  CC   CT3   55.000    109.00   20.00   2.32600 ! OS CC CT3
+OS2  CC   OB2   90.000    125.90  160.00   2.25760 ! OS CC OB
+ 
+DIHEDRALS
+!
+!V(dihedral) = Kchi(1 + cos(n(chi) - delta))
+!
+!Kchi: kcal/mole
+!n: multiplicity
+!delta: degrees
+!
+!atom types             Kchi    n   delta
+!
+X    CC   OS2  X        2.0500  2   180.00 ! X CC OS X
+CT2A  CC   OS2  P        1.10    1     0.00    
+CT2A  CC   OS2  P        1.50    2   180.00
+CC   OS2  P    ON3      0.25    3   180.00
+CC   OS2  P    ON3      0.24    3   180.00
+CT3  CC   OS2  P        1.10    1     0.00
+CT3  CC   OS2  P        1.50    2   180.00
+HA2  CT3  CC   OB2      0.14    3     0.00
+! for monoanic
+CC   OS2  P    ON4      0.96    1   180.00
+CC   OS2  P    ON4      1.50    3   180.00     
+
+IMPROPER
+!
+!V(improper) = Kpsi(psi - psi0)**2
+!
+!Kpsi: kcal/mole/rad**2
+!psi0: degrees
+!note that the second column of numbers (0) is ignored
+!
+!atom types           Kpsi                   psi0
+!
+CC   CT2A  OS2  OB2   100.0000         0      0.0000 ! CC CT2A OS OB
+CC   CT3  OS2  OB2   100.0000         0      0.0000 ! CC CT3 OS OB
+
+NONBONDED  NBXMOD 5  ATOM CDIEL FSHIFT VATOM VDISTANCE VFSWITCH -
+     CUTNB 14.0  CTOFNB 12.0  CTONNB 10.0  EPS 1.0  E14FAC 1.0  WMIN 1.5
+!
+!V(Lennard-Jones) = Eps,i,j[(Rmin,i,j/ri,j)**12 - 2(Rmin,i,j/ri,j)**6]
+!
+!epsilon: kcal/mole, Eps,i,j = sqrt(eps,i * eps,j)
+!Rmin/2: A, Rmin,i,j = Rmin/2,i + Rmin/2,j
+!
+!atom  ignored    epsilon      Rmin/2   ignored   eps,1-4       Rmin/2,1-4
+!
+!The following atom types are unique to the phosphoaspartate analags
+!to prm file,
+!OB2    0.000000  -0.102        1.84       0.000000  -0.120        1.40
+!OS2    0.000000  -0.096        2.00
+!             
+!and must be added to rtf file.
+!MASS   301 OB2   15.99900 O ! carbonyl oxygen in acetic acid
+!MASS   302 OS2   15.99940 O ! ester oxygen
+
+end

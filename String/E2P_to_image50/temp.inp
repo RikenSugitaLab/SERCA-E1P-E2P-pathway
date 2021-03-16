@@ -1,0 +1,330 @@
+[INPUT]
+topfile = ../toppar/top_all36_prot_pasp.rtf, \
+ ../toppar/top_all36_lipid.rtf, \
+ ../toppar/top_all36_na.rtf
+parfile = ../toppar/par_all36_prot_pasp_water_ion.prm, \
+ ../toppar/par_all36_lipid.prm, \
+ ../toppar/par_all36_na_mod.prm
+strfile = ../toppar/toppar_water_ions_mod_genesis.str, \
+ ../toppar/toppar_all36_na_nad_ppi_mod.str, \
+ ../toppar/toppar_phosphoaspartate4_mod.str
+psffile = ../init/sys_solvion.psf
+fitfile = ../init/image50_pro_trzrot_wat.pdb
+pdbfile = ../init/image50_pro_trzrot_wat.pdb
+reffile = ../rpath_generator_20ns_all_en2-image50_16rep_all_endfit/{}.pdb
+rstfile = ../calc16/eq16.{}.rst
+
+[OUTPUT]
+logfile       = pr01.{}.log
+rstfile       = pr01.{}.rst
+dcdfile       = pr01.{}.dcd
+rpathfile     = pr01.{}.rpath
+rpathlogfile  = pr01.rpathlog
+
+[ENERGY]
+forcefield      = CHARMM        # [CHARMM]
+electrostatic   = PME           # [CUTOFF,PME]
+switchdist      = 10.0          # switch distance
+cutoffdist      = 12.0          # cutoff distance
+pairlistdist    = 13.5          # pair-list distance
+pme_ngrid_x     = 96           # grid size_x in [PME] must be set
+pme_ngrid_y     = 96           # grid size_y in [PME] must be set
+pme_ngrid_z     = 128           # grid size_z in [PME] must be set
+pme_nspline     = 4
+water_model     = NONE
+vdw_force_switch = YES
+
+[DYNAMICS]
+integrator      = VVER          # [LEAP,VVER]
+timestep        = 0.002        # timestep (ps)
+nsteps          = <nsteps>         # number of MD steps
+crdout_period   = 5000
+eneout_period   = 1000          # energy output period
+rstout_period   = <nsteps>
+
+[CONSTRAINTS]
+rigid_bond      = YES           # constraints all bonds involving hydrogen
+fast_water      = YES
+shake_tolerance = 1.0D-10
+
+[ENSEMBLE]
+ensemble        = NPT           # [NVE,NVT,NPT]
+tpcontrol       = BUSSI      # thermostat and barostat
+temperature     = 310.15
+pressure        = 1.0           # atm
+isotropy        = SEMI-ISO
+
+[BOUNDARY]
+type            = PBC           # [PBC]
+
+[RPATH]
+<rpath_condition>
+
+[FITTING]
+#fitting_method = NO
+fitting_method = XYTR+ZROT
+fitting_atom   = 7
+
+[SELECTION]
+group1 = ai:5 | ai:22 | ai:37 | ai:47 | ai:57 | ai:74 |\
+ ai:85 | ai:107 | ai:118 | ai:132 | ai:147 |\
+ ai:162 | ai:173 | ai:192 | ai:202 | ai:223 |\
+ ai:243 | ai:250 | ai:266 | ai:277 | ai:292 |\
+ ai:306 | ai:320 | ai:327 | ai:346 | ai:362 |\
+ ai:374 | ai:386 | ai:403 | ai:419 | ai:441 |\
+ ai:465 | ai:482 | ai:501 | ai:516 | ai:538 |\
+ ai:559 | ai:566 | ai:583 | ai:597 | ai:612 |\
+ ai:633 | ai:645 | ai:655 | ai:670 | ai:685 |\
+ ai:692 | ai:714 | ai:725 | ai:744 | ai:768 |\
+ ai:783 | ai:802 | ai:818 | ai:820 | ai:822 |\
+ ai:826 | ai:829 | ai:837 | ai:852 | ai:869 |\
+ ai:889 | ai:904 | ai:916 | ai:935 | ai:937 |\
+ ai:940 | ai:942 | ai:946 | ai:954 | ai:970 |\
+ ai:994 | ai:1013 | ai:1015 | ai:1018 | ai:1020 |\
+ ai:1024 | ai:1032 | ai:1034 | ai:1037 | ai:1039 |\
+ ai:1043 | ai:1051 | ai:1070 | ai:1072 | ai:1080 |\
+ ai:1090 | ai:1101 | ai:1120 | ai:1131 | ai:1151 |\
+ ai:1167 | ai:1186 | ai:1196 | ai:1220 | ai:1240 |\
+ ai:1255 | ai:1270 | ai:1277 | ai:1292 | ai:1307 |\
+ ai:1321 | ai:1340 | ai:1354 | ai:1364 | ai:1384 |\
+ ai:1400 | ai:1402 | ai:1405 | ai:1408 | ai:1417 |\
+ ai:1429 | ai:1449 | ai:1465 | ai:1467 | ai:1469 |\
+ ai:1473 | ai:1476 | ai:1484 | ai:1503 | ai:1522 |\
+ ai:1541 | ai:1560 | ai:1579 | ai:1589 | ai:1603 |\
+ ai:1613 | ai:1632 | ai:1648 | ai:1655 | ai:1671 |\
+ ai:1695 | ai:1712 | ai:1727 | ai:1751 | ai:1765 |\
+ ai:1775 | ai:1790 | ai:1804 | ai:1814 | ai:1833 |\
+ ai:1848 | ai:1858 | ai:1877 | ai:1899 | ai:1914 |\
+ ai:1935 | ai:1952 | ai:1964 | ai:1979 | ai:1996 |\
+ ai:2003 | ai:2025 | ai:2041 | ai:2062 | ai:2086 |\
+ ai:2096 | ai:2108 | ai:2132 | ai:2154 | ai:2165 |\
+ ai:2181 | ai:2198 | ai:2222 | ai:2241 | ai:2263 |\
+ ai:2273 | ai:2297 | ai:2309 | ai:2328 | ai:2346 |\
+ ai:2358 | ai:2365 | ai:2377 | ai:2396 | ai:2412 |\
+ ai:2427 | ai:2443 | ai:2453 | ai:2469 | ai:2476 |\
+ ai:2488 | ai:2510 | ai:2528 | ai:2540 | ai:2550 |\
+ ai:2562 | ai:2581 | ai:2605 | ai:2624 | ai:2643 |\
+ ai:2654 | ai:2673 | ai:2695 | ai:2706 | ai:2720 |\
+ ai:2734 | ai:2753 | ai:2777 | ai:2793 | ai:2805 |\
+ ai:2807 | ai:2810 | ai:2813 | ai:2822 | ai:2824 |\
+ ai:2833 | ai:2852 | ai:2854 | ai:2857 | ai:2859 |\
+ ai:2863 | ai:2871 | ai:2873 | ai:2877 | ai:2885 |\
+ ai:2892 | ai:2894 | ai:2897 | ai:2900 | ai:2907 |\
+ ai:2909 | ai:2918 | ai:2934 | ai:2945 | ai:2961 |\
+ ai:2980 | ai:3002 | ai:3019 | ai:3033 | ai:3050 |\
+ ai:3062 | ai:3080 | ai:3092 | ai:3106 | ai:3118 |\
+ ai:3142 | ai:3152 | ai:3168 | ai:3182 | ai:3199 |\
+ ai:3211 | ai:3233 | ai:3255 | ai:3269 | ai:3286 |\
+ ai:3305 | ai:3325 | ai:3336 | ai:3343 | ai:3357 |\
+ ai:3371 | ai:3390 | ai:3400 | ai:3410 | ai:3417 |\
+ ai:3439 | ai:3449 | ai:3468 | ai:3475 | ai:3494 |\
+ ai:3510 | ai:3520 | ai:3534 | ai:3548 | ai:3555 |\
+ ai:3571 | ai:3582 | ai:3596 | ai:3611 | ai:3630 |\
+ ai:3637 | ai:3659 | ai:3678 | ai:3702 | ai:3714 |\
+ ai:3731 | ai:3748 | ai:3758 | ai:3768 | ai:3782 |\
+ ai:3797 | ai:3814 | ai:3826 | ai:3848 | ai:3864 |\
+ ai:3876 | ai:3895 | ai:3912 | ai:3929 | ai:3951 |\
+ ai:3970 | ai:3982 | ai:3997 | ai:3999 | ai:4002 |\
+ ai:4003 | ai:4005 | ai:4007 | ai:4009 | ai:4011 |\
+ ai:4017 | ai:4024 | ai:4039 | ai:4056 | ai:4075 |\
+ ai:4086 | ai:4108 | ai:4124 | ai:4143 | ai:4154 |\
+ ai:4173 | ai:4192 | ai:4203 | ai:4219 | ai:4229 |\
+ ai:4245 | ai:4247 | ai:4250 | ai:4251 | ai:4255 |\
+ ai:4256 | ai:4257 | ai:4259 | ai:4261 | ai:4263 |\
+ ai:4269 | ai:4288 | ai:4307 | ai:4321 | ai:4340 |\
+ ai:4347 | ai:4364 | ai:4384 | ai:4398 | ai:4412 |\
+ ai:4424 | ai:4440 | ai:4457 | ai:4464 | ai:4471 |\
+ ai:4482 | ai:4506 | ai:4525 | ai:4549 | ai:4556 |\
+ ai:4566 | ai:4585 | ai:4606 | ai:4627 | ai:4629 |\
+ ai:4632 | ai:4633 | ai:4635 | ai:4637 | ai:4639 |\
+ ai:4641 | ai:4647 | ai:4649 | ai:4652 | ai:4655 |\
+ ai:4658 | ai:4669 | ai:4688 | ai:4698 | ai:4714 |\
+ ai:4724 | ai:4743 | ai:4753 | ai:4755 | ai:4757 |\
+ ai:4761 | ai:4769 | ai:4771 | ai:4779 | ai:4789 |\
+ ai:4791 | ai:4793 | ai:4797 | ai:4800 | ai:4810 |\
+ ai:4822 | ai:4824 | ai:4827 | ai:4830 | ai:4838 |\
+ ai:4845 | ai:4866 | ai:4878 | ai:4888 | ai:4904 |\
+ ai:4923 | ai:4937 | ai:4951 | ai:4962 | ai:4981 |\
+ ai:4991 | ai:5010 | ai:5017 | ai:5031 | ai:5055 |\
+ ai:5079 | ai:5096 | ai:5106 | ai:5128 | ai:5150 |\
+ ai:5164 | ai:5174 | ai:5193 | ai:5209 | ai:5233 |\
+ ai:5244 | ai:5265 | ai:5277 | ai:5288 | ai:5304 |\
+ ai:5319 | ai:5333 | ai:5352 | ai:5359 | ai:5370 |\
+ ai:5384 | ai:5395 | ai:5411 | ai:5430 | ai:5441 |\
+ ai:5452 | ai:5454 | ai:5457 | ai:5468 | ai:5470 |\
+ ai:5473 | ai:5476 | ai:5479 | ai:5490 | ai:5492 |\
+ ai:5496 | ai:5504 | ai:5511 | ai:5525 | ai:5544 |\
+ ai:5558 | ai:5572 | ai:5574 | ai:5577 | ai:5586 |\
+ ai:5603 | ai:5620 | ai:5631 | ai:5647 | ai:5658 |\
+ ai:5680 | ai:5697 | ai:5717 | ai:5736 | ai:5755 |\
+ ai:5767 | ai:5789 | ai:5805 | ai:5817 | ai:5824 |\
+ ai:5836 | ai:5856 | ai:5867 | ai:5878 | ai:5897 |\
+ ai:5911 | ai:5926 | ai:5946 | ai:5957 | ai:5976 |\
+ ai:5990 | ai:5997 | ai:6008 | ai:6022 | ai:6043 |\
+ ai:6055 | ai:6067 | ai:6082 | ai:6089 | ai:6104 |\
+ ai:6120 | ai:6139 | ai:6161 | ai:6175 | ai:6187 |\
+ ai:6211 | ai:6223 | ai:6242 | ai:6266 | ai:6277 |\
+ ai:6284 | ai:6301 | ai:6321 | ai:6333 | ai:6340 |\
+ ai:6359 | ai:6375 | ai:6390 | ai:6409 | ai:6419 |\
+ ai:6433 | ai:6452 | ai:6463 | ai:6473 | ai:6492 |\
+ ai:6503 | ai:6517 | ai:6529 | ai:6540 | ai:6551 |\
+ ai:6570 | ai:6582 | ai:6602 | ai:6616 | ai:6631 |\
+ ai:6645 | ai:6667 | ai:6674 | ai:6690 | ai:6711 |\
+ ai:6726 | ai:6748 | ai:6764 | ai:6771 | ai:6773 |\
+ ai:6776 | ai:6779 | ai:6786 | ai:6796 | ai:6810 |\
+ ai:6812 | ai:6815 | ai:6818 | ai:6825 | ai:6839 |\
+ ai:6849 | ai:6868 | ai:6882 | ai:6896 | ai:6915 |\
+ ai:6931 | ai:6946 | ai:6968 | ai:6985 | ai:6999 |\
+ ai:7015 | ai:7035 | ai:7049 | ai:7063 | ai:7078 |\
+ ai:7094 | ai:7118 | ai:7132 | ai:7151 | ai:7162 |\
+ ai:7184 | ai:7200 | ai:7215 | ai:7239 | ai:7249 |\
+ ai:7263 | ai:7273 | ai:7284 | ai:7298 | ai:7309 |\
+ ai:7325 | ai:7344 | ai:7368 | ai:7385 | ai:7404 |\
+ ai:7421 | ai:7443 | ai:7465 | ai:7480 | ai:7500 |\
+ ai:7514 | ai:7533 | ai:7548 | ai:7568 | ai:7579 |\
+ ai:7581 | ai:7584 | ai:7587 | ai:7592 | ai:7603 |\
+ ai:7615 | ai:7639 | ai:7661 | ai:7672 | ai:7689 |\
+ ai:7700 | ai:7716 | ai:7737 | ai:7748 | ai:7761 |\
+ ai:7773 | ai:7783 | ai:7805 | ai:7816 | ai:7827 |\
+ ai:7851 | ai:7861 | ai:7871 | ai:7887 | ai:7894 |\
+ ai:7908 | ai:7930 | ai:7947 | ai:7967 | ai:7983 |\
+ ai:8005 | ai:8012 | ai:8024 | ai:8036 | ai:8051 |\
+ ai:8058 | ai:8074 | ai:8093 | ai:8105 | ai:8129 |\
+ ai:8140 | ai:8154 | ai:8175 | ai:8191 | ai:8215 |\
+ ai:8231 | ai:8238 | ai:8252 | ai:8266 | ai:8290 |\
+ ai:8308 | ai:8320 | ai:8337 | ai:8351 | ai:8360 |\
+ ai:8372 | ai:8388 | ai:8410 | ai:8425 | ai:8447 |\
+ ai:8466 | ai:8485 | ai:8496 | ai:8512 | ai:8531 |\
+ ai:8553 | ai:8568 | ai:8592 | ai:8599 | ai:8613 |\
+ ai:8620 | ai:8644 | ai:8656 | ai:8670 | ai:8689 |\
+ ai:8691 | ai:8694 | ai:8697 | ai:8702 | ai:8713 |\
+ ai:8724 | ai:8743 | ai:8753 | ai:8772 | ai:8782 |\
+ ai:8796 | ai:8820 | ai:8832 | ai:8848 | ai:8862 |\
+ ai:8874 | ai:8896 | ai:8920 | ai:8935 | ai:8950 |\
+ ai:8967 | ai:8983 | ai:9002 | ai:9014 | ai:9026 |\
+ ai:9037 | ai:9048 | ai:9072 | ai:9092 | ai:9109 |\
+ ai:9124 | ai:9145 | ai:9160 | ai:9174 | ai:9186 |\
+ ai:9205 | ai:9219 | ai:9239 | ai:9255 | ai:9262 |\
+ ai:9278 | ai:9294 | ai:9301 | ai:9318 | ai:9337 |\
+ ai:9351 | ai:9365 | ai:9377 | ai:9401 | ai:9423 |\
+ ai:9438 | ai:9454 | ai:9471 | ai:9478 | ai:9489 |\
+ ai:9508 | ai:9525 | ai:9544 | ai:9555 | ai:9579 |\
+ ai:9591 | ai:9601 | ai:9608 | ai:9627 | ai:9651 |\
+ ai:9667 | ai:9686 | ai:9703 | ai:9722 | ai:9724 |\
+ ai:9728 | ai:9736 | ai:9743 | ai:9745 | ai:9748 |\
+ ai:9755 | ai:9769 | ai:9791 | ai:9798 | ai:9812 |\
+ ai:9822 | ai:9841 | ai:9851 | ai:9870 | ai:9881 |\
+ ai:9905 | ai:9929 | ai:9948 | ai:9955 | ai:9974 |\
+ ai:9994 | ai:10001 | ai:10016 | ai:10030 | ai:10045 |\
+ ai:10060 | ai:10076 | ai:10086 | ai:10098 | ai:10122 |\
+ ai:10132 | ai:10153 | ai:10167 | ai:10174 | ai:10198 |\
+ ai:10213 | ai:10233 | ai:10245 | ai:10257 | ai:10278 |\
+ ai:10290 | ai:10309 | ai:10319 | ai:10334 | ai:10351 |\
+ ai:10375 | ai:10390 | ai:10400 | ai:10411 | ai:10435 |\
+ ai:10459 | ai:10469 | ai:10480 | ai:10491 | ai:10511 |\
+ ai:10521 | ai:10523 | ai:10526 | ai:10529 | ai:10534 |\
+ ai:10545 | ai:10561 | ai:10578 | ai:10590 | ai:10601 |\
+ ai:10618 | ai:10640 | ai:10651 | ai:10673 | ai:10692 |\
+ ai:10708 | ai:10723 | ai:10744 | ai:10763 | ai:10780 |\
+ ai:10791 | ai:10812 | ai:10824 | ai:10839 | ai:10858 |\
+ ai:10872 | ai:10882 | ai:10899 | ai:10913 | ai:10920 |\
+ ai:10922 | ai:10925 | ai:10932 | ai:10939 | ai:10955 |\
+ ai:10969 | ai:10981 | ai:10993 | ai:11005 | ai:11015 |\
+ ai:11034 | ai:11056 | ai:11078 | ai:11088 | ai:11103 |\
+ ai:11122 | ai:11129 | ai:11148 | ai:11158 | ai:11175 |\
+ ai:11182 | ai:11193 | ai:11200 | ai:11214 | ai:11224 |\
+ ai:11240 | ai:11250 | ai:11272 | ai:11286 | ai:11296 |\
+ ai:11307 | ai:11322 | ai:11339 | ai:11355 | ai:11374 |\
+ ai:11384 | ai:11396 | ai:11408 | ai:11422 | ai:11442 |\
+ ai:11453 | ai:11467 | ai:11486 | ai:11502 | ai:11512 |\
+ ai:11522 | ai:11538 | ai:11553 | ai:11568 | ai:11575 |\
+ ai:11599 | ai:11609 | ai:11628 | ai:11649 | ai:11663 |\
+ ai:11677 | ai:11694 | ai:11716 | ai:11733 | ai:11753 |\
+ ai:11772 | ai:11796 | ai:11817 | ai:11836 | ai:11855 |\
+ ai:11866 | ai:11877 | ai:11879 | ai:11882 | ai:11891 |\
+ ai:11907 | ai:11914 | ai:11916 | ai:11919 | ai:11922 |\
+ ai:11930 | ai:11946 | ai:11962 | ai:11973 | ai:11975 |\
+ ai:11977 | ai:11981 | ai:11984 | ai:11992 | ai:12012 |\
+ ai:12031 | ai:12045 | ai:12055 | ai:12065 | ai:12084 |\
+ ai:12091 | ai:12112 | ai:12124 | ai:12139 | ai:12149 |\
+ ai:12168 | ai:12186 | ai:12189 | ai:12191 | ai:12194 |\
+ ai:12201 | ai:12217 | ai:12234 | ai:12236 | ai:12239 |\
+ ai:12241 | ai:12245 | ai:12253 | ai:12255 | ai:12258 |\
+ ai:12260 | ai:12264 | ai:12272 | ai:12296 | ai:12312 |\
+ ai:12314 | ai:12317 | ai:12326 | ai:12345 | ai:12361 |\
+ ai:12363 | ai:12367 | ai:12375 | ai:12377 | ai:12380 |\
+ ai:12387 | ai:12394 | ai:12415 | ai:12427 | ai:12437 |\
+ ai:12451 | ai:12461 | ai:12480 | ai:12487 | ai:12507 |\
+ ai:12523 | ai:12537 | ai:12549 | ai:12561 | ai:12580 |\
+ ai:12592 | ai:12611 | ai:12628 | ai:12640 | ai:12666 |\
+ ai:12680 | ai:12692 | ai:12716 | ai:12729 | ai:12741 |\
+ ai:12763 | ai:12780 | ai:12792 | ai:12811 | ai:12830 |\
+ ai:12841 | ai:12848 | ai:12872 | ai:12891 | ai:12911 |\
+ ai:12931 | ai:12955 | ai:12976 | ai:12993 | ai:13003 |\
+ ai:13022 | ai:13029 | ai:13036 | ai:13057 | ai:13073 |\
+ ai:13080 | ai:13090 | ai:13100 | ai:13114 | ai:13130 |\
+ ai:13137 | ai:13147 | ai:13157 | ai:13167 | ai:13191 |\
+ ai:13215 | ai:13235 | ai:13252 | ai:13273 | ai:13283 |\
+ ai:13298 | ai:13310 | ai:13319 | ai:13331 | ai:13338 |\
+ ai:13354 | ai:13368 | ai:13389 | ai:13406 | ai:13423 |\
+ ai:13442 | ai:13456 | ai:13473 | ai:13493 | ai:13510 |\
+ ai:13527 | ai:13537 | ai:13551 | ai:13566 | ai:13578 |\
+ ai:13597 | ai:13609 | ai:13626 | ai:13646 | ai:13661 |\
+ ai:13668 | ai:13687 | ai:13699 | ai:13709 | ai:13724 |\
+ ai:13743 | ai:13763 | ai:13778 | ai:13790 | ai:13802 |\
+ ai:13819 | ai:13831 | ai:13848 | ai:13862 | ai:13879 |\
+ ai:13889 | ai:13908 | ai:13919 | ai:13935 | ai:13954 |\
+ ai:13970 | ai:13984 | ai:14003 | ai:14005 | ai:14008 |\
+ ai:14011 | ai:14019 | ai:14036 | ai:14047 | ai:14061 |\
+ ai:14071 | ai:14090 | ai:14104 | ai:14115 | ai:14134 |\
+ ai:14145 | ai:14160 | ai:14174 | ai:14191 | ai:14202 |\
+ ai:14221 | ai:14238 | ai:14262 | ai:14281 | ai:14295 |\
+ ai:14307 | ai:14331 | ai:14347 | ai:14361 | ai:14380 |\
+ ai:14404 | ai:14423 | ai:14442 | ai:14449 | ai:14460 |\
+ ai:14479 | ai:14490 | ai:14509 | ai:14520 | ai:14537 |\
+ ai:14548 | ai:14567 | ai:14584 | ai:14604 | ai:14623 |\
+ ai:14642 | ai:14661 | ai:14682 | ai:14698 | ai:14712 |\
+ ai:14724 | ai:14745 | ai:14757 | ai:14774 | ai:14793 |\
+ ai:14813 | ai:14835 | ai:14854 | ai:14876 | ai:14886 |\
+ ai:14905 | ai:14917 | ai:14936 | ai:14950 | ai:14967 |\
+ ai:14991 | ai:15010 | ai:15027 | ai:15043 | ai:15062 |\
+ ai:15084 | ai:15103 | ai:15114 | ai:15135 | ai:15147 |\
+ ai:15163 | ai:15182 | ai:15189 | ai:15208 | ai:15220 |\
+ ai:15235 | ai:15254 | ai:15273 | ai:15295 | ai:15315 |\
+ ai:15334 | ai:15344 | ai:15368 | ai:15382 | ai:15403 |\
+ ai:15422 | ai:15437
+group2          = sid:POT and ano:15444
+group3          = sid:PRO and rnam:GLU and resno:732 and an:OE1
+group4          = sid:PRO and rnam:GLU and resno:732 and an:OE2
+group5          = sid:PRO and rnam:LEU and resno:711 and an:O
+group6          = sid:PRO and rnam:ALA and resno:714 and an:O
+group7  = an:CA and ((resno:773-786) or (resno:800-807) or \
+ (resno:836-856) or (resno:894-929) or (resno:931-950) or \
+ (resno:952-962) or (resno:966-989))
+
+
+[RESTRAINTS]
+nfunctions=5
+function1     = POSI
+<constant1>
+select_index1 = 1
+
+function2         = DIST
+constant2         = 10.0
+reference2        = 2.60
+select_index2     = 2 3
+
+function3         = DIST
+constant3         = 10.0
+reference3        = 3.19
+select_index3     = 2 4
+
+function4         = DIST
+constant4         = 10.0
+reference4        = 2.66
+select_index4     = 2 5
+
+function5         = DIST
+constant5         = 10.0
+reference5        = 2.31
+select_index5     = 2 6
