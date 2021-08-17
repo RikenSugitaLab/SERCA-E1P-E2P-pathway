@@ -1,4 +1,4 @@
-#SERCA-E1P-E2P-pathway
+# SERCA-E1P-E2P-pathway
 
 Structural and energetic analysis of meta-stable intermediate states in the E1P-E2P transition of Ca2+-ATPase 
 
